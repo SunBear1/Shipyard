@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.example.Ship.Ship;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -15,10 +16,14 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 
-public class User {
-    private Long id;
+public class User implements Serializable {
+    private String login;
 
     private String name;
+
+    private String surname;
+
+    private String email;
 
     @ToString.Exclude
     private String password;

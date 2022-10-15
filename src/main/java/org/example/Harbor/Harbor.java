@@ -14,6 +14,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 public class Harbor {
+    Long id;
 
     String name;
 
