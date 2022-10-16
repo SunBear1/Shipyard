@@ -1,0 +1,31 @@
+PUT http://localhost:9080/shipyard/api/user/JackyS/avatar
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename="jacksparrow.png'
+
+< ../../src/main/resources/images/avatars/jacksparrow.png
+--boundary--
+
+###
+
+GET http://localhost:9080/shipyard/api/user/JackyS/avatar
+Accept: image/png
+
+###
+
+DELETE http://localhost:9080/shipyard/api/user/JackyS/avatar
+Accept: application/json
+
+###
+
+GET http://localhost:9080/shipyard/api/user/JackyS/avatar
+Accept: application/json
+
+
+###
+
+DELETE http://localhost:9080/shipyard/api/user/JackyS/avatar
+Accept: application/json
+
+###

@@ -1,0 +1,71 @@
+PUT http://localhost:9080/shipyard/api/user/admin/avatar
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename="admin.png'
+
+< ../../src/main/resources/images/avatars/admin.png
+--boundary--
+
+
+###
+
+
+PUT http://localhost:9080/shipyard/api/user/JackyS/avatar
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename="jacksparrow.png'
+
+< ../../src/main/resources/images/avatars/jacksparrow.png
+--boundary--
+
+###
+
+
+PUT http://localhost:9080/shipyard/api/user/WillT/avatar
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename="willturner.png'
+
+< ../../src/main/resources/images/avatars/willturner.png
+--boundary--
+
+###
+
+PUT http://localhost:9080/shipyard/api/user/LizzyS/avatar
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename="elizabethswann.png'
+
+< ../../src/main/resources/images/avatars/elizabethswann.png
+--boundary--
+
+###
+
+
+GET http://localhost:9080/shipyard/api/user/admin/avatar
+Accept: image/png
+
+
+###
+
+GET http://localhost:9080/shipyard/api/user/JackyS/avatar
+Accept: image/png
+
+
+###
+
+GET http://localhost:9080/shipyard/api/user/WillT/avatar
+Accept: image/png
+
+
+###
+
+GET http://localhost:9080/shipyard/api/user/LizzyS/avatar
+Accept: image/png
+
+
+###

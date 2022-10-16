@@ -28,7 +28,7 @@ public class User implements Serializable {
     @ToString.Exclude
     private String password;
 
-    private Byte userPhoto;
+    private byte[] avatar;
 
     private List<Ship> ships;
 

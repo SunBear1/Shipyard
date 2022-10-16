@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class UserRepository implements Repository<User, String> {
 
-    private DataStore store;
+    private final DataStore store;
 
     public UserRepository(DataStore store){
         this.store = store;
@@ -37,6 +37,6 @@ public class UserRepository implements Repository<User, String> {
 
     @Override
     public void update(User entity) {
-        throw new UnsupportedOperationException("Not implemented.");
+        store.updateUser(entity);
     }
 }

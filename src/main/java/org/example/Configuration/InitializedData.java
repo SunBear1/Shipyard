@@ -1,13 +1,11 @@
 package org.example.Configuration;
 
-import lombok.SneakyThrows;
 import org.example.User.Service.UserService;
 import org.example.User.User;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import java.io.InputStream;
 
 
 @WebListener
@@ -16,7 +14,6 @@ public class InitializedData implements ServletContextListener {
     @Override
     public synchronized void contextInitialized(ServletContextEvent sce) {
         UserService userService = (UserService) sce.getServletContext().getAttribute("userService");
-        System.out.println(userService);
         init(userService);
     }
 
@@ -55,11 +52,11 @@ public class InitializedData implements ServletContextListener {
         userService.create(elizabeth);
     }
 
-    @SneakyThrows
-    private byte[] getResourceAsByteArray(String name) {
-        try (InputStream is = this.getClass().getResourceAsStream(name)) {
-            return is.readAllBytes();
-        }
-    }
+//    @SneakyThrows
+//    private byte[] getResourceAsByteArray(String name) {
+//        try (InputStream is = this.getClass().getResourceAsStream(name)) {
+//            return is.readAllBytes();
+//        }
+//    }
 
 }
