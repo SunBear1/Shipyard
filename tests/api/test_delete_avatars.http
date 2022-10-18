@@ -4,7 +4,7 @@ Content-Type: multipart/form-data; boundary=boundary
 --boundary
 Content-Disposition: form-data; name="avatar"; filename="jacksparrow.png'
 
-< ../../src/main/resources/images/avatars/jacksparrow.png
+< ../../tests/images/jacksparrow.png
 --boundary--
 
 ###

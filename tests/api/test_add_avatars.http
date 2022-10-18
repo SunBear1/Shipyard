@@ -4,7 +4,7 @@ Content-Type: multipart/form-data; boundary=boundary
 --boundary
 Content-Disposition: form-data; name="avatar"; filename="admin.png'
 
-< ../../src/main/resources/images/avatars/admin.png
+< ../../tests/images/admin.png
 --boundary--
 
 
@@ -17,7 +17,7 @@ Content-Type: multipart/form-data; boundary=boundary
 --boundary
 Content-Disposition: form-data; name="avatar"; filename="jacksparrow.png'
 
-< ../../src/main/resources/images/avatars/jacksparrow.png
+< ../../tests/images/jacksparrow.png
 --boundary--
 
 ###
@@ -29,7 +29,7 @@ Content-Type: multipart/form-data; boundary=boundary
 --boundary
 Content-Disposition: form-data; name="avatar"; filename="willturner.png'
 
-< ../../src/main/resources/images/avatars/willturner.png
+< ../../tests/images/willturner.png
 --boundary--
 
 ###
@@ -40,7 +40,7 @@ Content-Type: multipart/form-data; boundary=boundary
 --boundary
 Content-Disposition: form-data; name="avatar"; filename="elizabethswann.png'
 
-< ../../src/main/resources/images/avatars/elizabethswann.png
+< ../../tests/images/elizabethswann.png
 --boundary--
 
 ###
