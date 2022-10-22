@@ -1,21 +1,27 @@
 package org.example.User.Service;
 
+import lombok.NoArgsConstructor;
 import org.example.User.Repository.UserRepository;
 import org.example.User.User;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
+@NoArgsConstructor//Empty constructor is required for creating proxy while CDI injection.
 public class UserService {
-    private final UserRepository repository;
+    private UserRepository repository;
 
-    public UserService(UserRepository repository){
+    @Inject
+    public UserService(UserRepository repository) {
         this.repository = repository;
     }
 
-    public Optional<User> find(String login){
+    public Optional<User> find(String login) {
         return repository.find(login);
     }
 
@@ -43,6 +49,10 @@ public class UserService {
             user.setAvatar(null);
             repository.update(user);
         });
+    }
+
+    public void delete(User user) {
+        repository.delete(user);
     }
 
 

@@ -1,13 +1,6 @@
 package org.example.User.DTO;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Singular;
-import lombok.ToString;
+
+import lombok.*;
 import org.example.User.User;
 
 import java.util.Collection;

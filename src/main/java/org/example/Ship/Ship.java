@@ -5,6 +5,7 @@ import lombok.experimental.SuperBuilder;
 import org.example.Harbor.Harbor;
 import org.example.User.User;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
@@ -14,15 +15,16 @@ import java.time.LocalDate;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
-public class Ship {
+public class Ship implements Serializable {
+    private Long id;
 
-    String name;
+    private String name;
 
-    LocalDate ship_completion_date;
+    private LocalDate completionDate;
 
-    User user;
+    private User user;
 
-    Harbor harbor;
+    private Harbor harbor;
 
-    double cost;
+    private double cost;
 }

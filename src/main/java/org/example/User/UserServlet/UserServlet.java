@@ -6,6 +6,7 @@ import org.example.User.DTO.GetUsersResponse;
 import org.example.User.Service.UserService;
 import org.example.User.User;
 
+import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.servlet.ServletException;
@@ -26,6 +27,9 @@ import java.util.Optional;
 })
 @MultipartConfig(maxFileSize = 200 * 1024)
 public class UserServlet extends HttpServlet {
+
+    private UserService service;
+
     public static class Paths {
 
         public static final String USER = "/api/user";
@@ -34,8 +38,13 @@ public class UserServlet extends HttpServlet {
 
     }
 
-
     private final Jsonb jsonb = JsonbBuilder.create();
+
+    @Inject
+    public UserServlet(UserService service){
+        this.service = service;
+    }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -85,7 +94,7 @@ public class UserServlet extends HttpServlet {
     }
 
     private void getUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserService service = (UserService) request.getServletContext().getAttribute("userService");
+        // UserService service = (UserService) request.getServletContext().getAttribute("userService");
         String login = ServletUtility.parseRequestPath(request).replaceAll("/", "");
         Optional<User> user = service.find(login);
         if (user.isPresent()) {
@@ -101,14 +110,14 @@ public class UserServlet extends HttpServlet {
     }
 
     private void getUsers(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserService service = (UserService) request.getServletContext().getAttribute("userService");
+        // UserService service = (UserService) request.getServletContext().getAttribute("userService");
         response.setContentType("application/json");
         response.getWriter().write(jsonb.toJson(GetUsersResponse.entityToDtoMapper().apply(service.findAll())));
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
     private void getUserAvatar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserService service = (UserService) request.getServletContext().getAttribute("userService");
+        // UserService service = (UserService) request.getServletContext().getAttribute("userService");
         String[] urlParts = request.getPathInfo().split("/");
         String login = urlParts[1];
         Optional<User> user = service.find(login);
@@ -129,7 +138,7 @@ public class UserServlet extends HttpServlet {
     }
 
     private void putUserAvatar(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserService service = (UserService) request.getServletContext().getAttribute("userService");
+        // UserService service = (UserService) request.getServletContext().getAttribute("userService");
         String[] urlParts = request.getPathInfo().split("/");
         String login = urlParts[1];
         Optional<User> user = service.find(login);
@@ -150,7 +159,7 @@ public class UserServlet extends HttpServlet {
     }
 
     private void deleteUserAvatar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserService service = (UserService) request.getServletContext().getAttribute("userService");
+        // UserService service = (UserService) request.getServletContext().getAttribute("userService");
         String[] urlParts = request.getPathInfo().split("/");
         String login = urlParts[1];
         Optional<User> user = service.find(login);

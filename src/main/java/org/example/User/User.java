@@ -30,6 +30,8 @@ public class User implements Serializable {
 
     private byte[] avatar;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Ship> ships;
 
 }

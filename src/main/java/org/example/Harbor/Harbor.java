@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.example.Ship.Ship;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -13,22 +14,18 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
-public class Harbor {
-    Long id;
+public class Harbor implements Serializable {
 
-    String name;
+    private String name;
 
-    String domain;
+    private String code;
 
-    int capacity;
+    private int capacity;
 
-    double budget;
+    private double budget;
 
-    Country country;
+    private Country country;
 
     private List<Ship> ships;
 }
 
-enum Country{
-    Poland, Dutch, Spain, England, Italy, Czech, German
-}

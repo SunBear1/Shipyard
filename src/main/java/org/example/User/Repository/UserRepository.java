@@ -4,14 +4,18 @@ import org.example.DataStore.DataStore;
 import org.example.Repository.Repository;
 import org.example.User.User;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
+@Dependent
 public class UserRepository implements Repository<User, String> {
 
     private final DataStore store;
 
-    public UserRepository(DataStore store){
+    @Inject
+    public UserRepository(DataStore store) {
         this.store = store;
     }
 
@@ -32,7 +36,7 @@ public class UserRepository implements Repository<User, String> {
 
     @Override
     public void delete(User entity) {
-        throw new UnsupportedOperationException("Not implemented.");
+        store.deleteUser(entity.getLogin());
     }
 
     @Override
