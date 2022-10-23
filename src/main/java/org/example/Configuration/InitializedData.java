@@ -115,7 +115,15 @@ public class InitializedData {
                 .harbor(ams)
                 .cost(98765.21)
                 .build();
+        Ship ship_two = Ship.builder()
+                .name("Black Pearl")
+                .completionDate(LocalDate.of(1975, 5, 13))
+                .user(admin)
+                .harbor(ams)
+                .cost(123.21)
+                .build();
         shipService.create(ship_one);
+        shipService.create(ship_two);
         System.out.println("init przeszedl");
         // System.out.println(userService.findAll());
     }

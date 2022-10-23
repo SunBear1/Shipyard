@@ -61,8 +61,6 @@ function createHarborRow(harbor) {
 
     tr.appendChild(createLinkCell('view', '../view/view_harbor.html?code=' + harbor.code));
 
-    tr.appendChild(createLinkCell('edit', '../character_edit/character_edit.html?id=' + harbor.name));
-
     tr.appendChild(createButtonCell('delete', () => {
         deleteCharacter(harbor.code);
     }));

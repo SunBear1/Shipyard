@@ -57,7 +57,7 @@ public class ShipRepository implements Repository<Ship, Long> {
 
     public List<Ship> findAllByHarbor(Harbor harbor) {
         return store.findAllShips().stream()
-                .filter(ship -> ship.getUser().equals(harbor))
+                .filter(ship -> ship.getHarbor().equals(harbor))
                 .map(CloningUtility::clone)
                 .collect(Collectors.toList());
     }

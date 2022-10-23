@@ -5,10 +5,8 @@ import org.example.Harbor.DTO.GetHarborsResponse;
 import org.example.Harbor.Harbor;
 import org.example.Harbor.Service.HarborService;
 import org.example.Servlet.ServletUtility;
-import org.example.Ship.DTO.GetShipResponse;
 import org.example.Ship.DTO.GetShipsResponse;
-import org.example.Ship.Ship;
-import org.example.Ship.ShipServlet.ShipServlet;
+import org.example.Ship.Service.ShipService;
 
 import javax.inject.Inject;
 import javax.json.bind.Jsonb;
@@ -25,11 +23,13 @@ import java.util.Optional;
         HarborServlet.Paths.HARBORS,
 })
 public class HarborServlet extends HttpServlet {
-    private HarborService service;
+    private HarborService harborService;
+    private ShipService shipService;
 
     @Inject
-    public HarborServlet(HarborService service){
-        this.service = service;
+    public HarborServlet(HarborService harborService, ShipService shipService){
+        this.harborService = harborService;
+        this.shipService = shipService;
     }
 
     public static class Paths {
@@ -57,8 +57,9 @@ public class HarborServlet extends HttpServlet {
 
     private void getHarbor(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String code = ServletUtility.parseRequestPath(request).replaceAll("/", "");
-        Optional<Harbor> harbor = service.find(code);
+        Optional<Harbor> harbor = harborService.find(code);
         if (harbor.isPresent()) {
+            harbor.get().setShips(shipService.findAllForHarbor(code));
             response.setContentType("application/json");
             response.getWriter()
                     .write(jsonb.toJson(GetHarborResponse.entityToDtoMapper().apply(harbor.get())));
@@ -72,7 +73,7 @@ public class HarborServlet extends HttpServlet {
 
     private void getHarbors(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
-        response.getWriter().write(jsonb.toJson(GetHarborsResponse.entityToDtoMapper().apply(service.findAll())));
+        response.getWriter().write(jsonb.toJson(GetHarborsResponse.entityToDtoMapper().apply(harborService.findAll())));
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
@@ -89,10 +90,10 @@ public class HarborServlet extends HttpServlet {
     private void deleteHarbor(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //Parsed request path is valid with character pattern and can contain starting and ending '/'.
         String code = ServletUtility.parseRequestPath(request).replaceAll("/", "");
-        Optional<Harbor> harbor = service.find(code);
+        Optional<Harbor> harbor = harborService.find(code);
 
         if (harbor.isPresent()) {
-            service.delete(harbor.get().getCode());
+            harborService.delete(harbor.get().getCode());
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);

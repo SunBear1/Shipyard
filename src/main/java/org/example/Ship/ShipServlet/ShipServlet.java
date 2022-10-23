@@ -24,21 +24,23 @@ import java.util.Optional;
 
 @WebServlet(urlPatterns = {
         ShipServlet.Paths.SHIP + "/*",
-        ShipServlet.Paths.USER_SHIPS,
+        ShipServlet.Paths.HARBOR_SHIPS,
 })
 public class ShipServlet extends HttpServlet {
 
     private ShipService shipService;
+    private HarborService harborService;
 
     @Inject
-    public ShipServlet(ShipService shipService) {
+    public ShipServlet(ShipService shipService, HarborService harborService) {
         this.shipService = shipService;
+        this.harborService = harborService;
     }
 
     public static class Paths {
 
         public static final String SHIP = "/api/ship";
-        public static final String USER_SHIPS = "/api/ships";
+        public static final String HARBOR_SHIPS = "/api/ships";
 
     }
 
@@ -65,7 +67,7 @@ public class ShipServlet extends HttpServlet {
 
         if (Paths.SHIP.equals(servletPath)) {
             getShip(request, response);
-        } else if (Paths.USER_SHIPS.equals(servletPath)) {
+        } else if (Paths.HARBOR_SHIPS.equals(servletPath)) {
             getShips(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -98,15 +100,14 @@ public class ShipServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String path = ServletUtility.parseRequestPath(request);
-        if (Paths.USER_SHIPS.equals(request.getServletPath())) {
-            deleteUserShip(request, response);
+        if (Paths.SHIP.equals(request.getServletPath())) {
+            deleteHarborShip(request, response);
             return;
         }
         response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
 
-    private void deleteUserShip(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void deleteHarborShip(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //Parsed request path is valid with character pattern and can contain starting and ending '/'.
         Long id = Long.parseLong(ServletUtility.parseRequestPath(request).replaceAll("/", ""));
         Optional<Ship> ship = shipService.find(id);
@@ -122,11 +123,9 @@ public class ShipServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = ServletUtility.parseRequestPath(request);
-        if (Paths.USER_SHIPS.equals(request.getServletPath())) {
-            if (path.matches(Patterns.SHIPS)) {
-                //postUserShip(request, response);
-                return;
-            }
+        if (Paths.HARBOR_SHIPS.equals(request.getServletPath())) {
+            postHarborShip(request, response);
+            return;
         }
         response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
@@ -134,16 +133,16 @@ public class ShipServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = ServletUtility.parseRequestPath(request);
-        if (Paths.USER_SHIPS.equals(request.getServletPath())) {
+        if (Paths.SHIP.equals(request.getServletPath())) {
             if (path.matches(Patterns.SHIP)) {
-                putUserShip(request, response);
+                putHarborShip(request, response);
                 return;
             }
         }
         response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
 
-    private void putUserShip(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void putHarborShip(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //Parsed request path is valid with character pattern and can contain starting and ending '/'.
         Long id = Long.parseLong(ServletUtility.parseRequestPath(request).replaceAll("/", ""));
         Optional<Ship> ship = shipService.find(id);
@@ -162,24 +161,28 @@ public class ShipServlet extends HttpServlet {
 
     }
 
-//    private void postUserShip(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        CreateShipRequest requestBody = jsonb.fromJson(request.getInputStream(), CreateShipRequest.class);
-//
-//        Ship ship = CreateShipRequest
-//                .dtoToEntityMapper(name -> harborService.find(name).orElse(null), () -> null)
-//                .apply(requestBody);
-//
-//        try {
-//            shipService.create(ship);
-//            //When creating new resource, its location should be returned.
-//            response.addHeader(HttpHeaders.LOCATION,
-//                    UrlFactory.createUrl(request, Paths.USER_SHIPS, ship.getId().toString()));
-//            //When creating new resource, appropriate code should be set.
-//            response.setStatus(HttpServletResponse.SC_CREATED);
-//        } catch (IllegalArgumentException ex) {
-//            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-//        }
-//    }
+    private void postHarborShip(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        CreateShipRequest requestBody = jsonb.fromJson(request.getInputStream(), CreateShipRequest.class);
+
+        Ship ship = CreateShipRequest
+                .dtoToEntityMapper(harbor_code -> harborService.find(harbor_code).orElse(null), () -> null)
+                .apply(requestBody);
+
+        System.out.println("servlet1");
+        System.out.println(ship);
+        try {
+            System.out.println("servlet2");
+            System.out.println(ship);
+            shipService.create(ship);
+            //When creating new resource, its location should be returned.
+            response.addHeader(HttpHeaders.LOCATION,
+                    UrlFactory.createUrl(request, Paths.HARBOR_SHIPS, ship.getId().toString()));
+            //When creating new resource, appropriate code should be set.
+            response.setStatus(HttpServletResponse.SC_CREATED);
+        } catch (IllegalArgumentException ex) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
 
 
 }

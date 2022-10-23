@@ -1,0 +1,19 @@
+/*.ship__grid {*/
+/*    display: grid;*/
+/*    grid-template-columns: 200px 200px 200px 350px;*/
+/*}*/
+
+/*.ships_id {*/
+/*    grid-column: 1;*/
+/*    grid-row: 2;*/
+/*}*/
+
+/*.ships_completionDate {*/
+/*    grid-column: 1;*/
+/*    grid-row: 5;*/
+/*}*/
+
+/*.ships_cost {*/
+/*    grid-column: 1;*/
+/*    grid-row: 3;*/
+/*}*/

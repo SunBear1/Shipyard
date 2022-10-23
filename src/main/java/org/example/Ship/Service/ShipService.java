@@ -44,12 +44,12 @@ public class ShipService {
         shipRepository.update(ship);
     }
 
-    public List<Ship> findAllForHarbor(Harbor harbor) {
-        return shipRepository.findAllByHarbor(harborRepository.find(harbor.getCode()).orElseThrow());
+    public List<Ship> findAllForHarbor(String code) {
+        return shipRepository.findAllByHarbor(harborRepository.find(code).orElseThrow());
     }
 
-    public Optional<Ship> findForHarbor(Long id, Harbor harbor) {
-        return shipRepository.findByIdAndHarbor(id, harborRepository.find(harbor.getCode()).orElseThrow());
+    public Optional<Ship> findForHarbor(Long id, String code) {
+        return shipRepository.findByIdAndHarbor(id, harborRepository.find(code).orElseThrow());
     }
 
 

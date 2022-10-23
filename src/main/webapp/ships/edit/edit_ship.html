@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="description" content="Simple RPG web application"/>
+  <meta name="keywords" content="RPG"/>
+  <meta name="author" content="Michał (psysiu) Wójcik"/>
+  <title>Shipyard</title>
+  <link rel="stylesheet" href="../../styles.css"/>
+  <link rel="stylesheet" href="edit_ship.css"/>
+  <script src="../../script.js" defer="defer"></script>
+  <script src="edit_ship.js" defer="defer"></script>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <h1>Shipyard</h1>
+  </header>
+
+  <nav class="navigation-bar">
+    <ul>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../harbors/list/list_harbors.html">Harbors</a></li>
+    </ul>
+  </nav>
+
+  <section class="main-section">
+    <article class="text--justified">
+      <header><h2>Edit ship information</h2></header>
+      <form class="ship__form" id="infoForm">
+        <label for="name">Name:</label>
+        <input class="ui-control ui-input" id="name" name="name"/>
+        <label for="cost">Cost:</label>
+        <input class="ui-control ui-input" id="cost" name="cost" type="number" step="0.1"/>
+        <label for="completionDate">Completion Date:</label>
+        <input class="ui-control" id="completionDate" name="completionDate" type="date"/>
+        <input class="ui-control ui-button" type="submit" name="Update"/>
+      </form>
+    </article>
+
+  </section>
+
+  <footer class="footer">
+    <p>Copyright &copy; 2022, Łukasz Niedźwiadek</p>
+  </footer>
+</div>
+</body>
+</html>

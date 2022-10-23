@@ -23,10 +23,6 @@ public class GetShipResponse {
 
     private LocalDate CompletionDate;
 
-    private User user;
-
-    private Harbor harbor;
-
     private double cost;
 
     public static Function<Ship, GetShipResponse> entityToDtoMapper() {
@@ -34,7 +30,6 @@ public class GetShipResponse {
                 .id(ship.getId())
                 .name(ship.getName())
                 .CompletionDate(ship.getCompletionDate())
-                .harbor(ship.getHarbor())
                 .cost(ship.getCost())
                 .build();
     }
