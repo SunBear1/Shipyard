@@ -1,7 +1,6 @@
 package org.example.Ship.Service;
 
 import lombok.NoArgsConstructor;
-import org.example.Harbor.Harbor;
 import org.example.Harbor.Repository.HarborRepository;
 import org.example.Ship.Repository.ShipRepository;
 import org.example.Ship.Ship;
@@ -19,7 +18,7 @@ public class ShipService {
     private HarborRepository harborRepository;
 
     @Inject
-    public ShipService(ShipRepository shipRepository,HarborRepository harborRepository) {
+    public ShipService(ShipRepository shipRepository, HarborRepository harborRepository) {
         this.shipRepository = shipRepository;
         this.harborRepository = harborRepository;
     }

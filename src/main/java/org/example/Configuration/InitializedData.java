@@ -16,15 +16,11 @@ import javax.inject.Inject;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @ApplicationScoped
 public class InitializedData {
-
-    private final String defaultAvatarPath = "avatars/default.png";
 
     private final UserService userService;
     private final ShipService shipService;
@@ -35,15 +31,14 @@ public class InitializedData {
         this.shipService = shipService;
         this.userService = userService;
         this.harborService = harborService;
-        System.out.println("dupsko");
     }
 
     public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
         init();
-        System.out.println("dupsko 2");
     }
 
     private synchronized void init() {
+        String defaultAvatarPath = "avatars/default.png";
         User admin = User.builder()
                 .login("admin")
                 .name("Lukasz")
@@ -80,7 +75,7 @@ public class InitializedData {
         userService.create(will);
         userService.create(jack);
         userService.create(elizabeth);
-        List<Ship> empty_ships = new ArrayList<Ship>();
+        List<Ship> empty_ships = new ArrayList<>();
         Harbor ams = Harbor.builder()
                 .name("Amsterdam Noord")
                 .code("AMS")
@@ -124,8 +119,6 @@ public class InitializedData {
                 .build();
         shipService.create(ship_one);
         shipService.create(ship_two);
-        System.out.println("init przeszedl");
-        // System.out.println(userService.findAll());
     }
 
     @SneakyThrows

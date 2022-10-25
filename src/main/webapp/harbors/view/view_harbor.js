@@ -17,18 +17,15 @@ function loadHarbor(code) {
             })
             for (const [key, value] of Object.entries(response)) {
                 const element = document.getElementById(key);
-                console.log(key)
                 if (element) {
                     updateElementText(element, value);
                 }
             }
-            //document.getElementById('portrait').src = getContextRoot() + '/api/portraits/' + id;
         }
     };
     xhttp.open("GET", getContextRoot() + '/api/harbor/' + code, true);
     xhttp.send();
 }
-
 
 
 /**
@@ -103,7 +100,7 @@ function createAddShipButton(code) {
     button.classList.add('ui-control', 'ui-button');
 
     button.onclick = function () {
-        window.open('../../ships/add/add_ship.html?code=' + code,"_self");
+        window.open('../../ships/add/add_ship.html?code=' + code, "_self");
     }
     button_div.appendChild(button);
 }

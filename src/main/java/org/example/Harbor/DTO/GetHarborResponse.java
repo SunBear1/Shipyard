@@ -3,11 +3,8 @@ package org.example.Harbor.DTO;
 import lombok.*;
 import org.example.Harbor.Country;
 import org.example.Harbor.Harbor;
-import org.example.Ship.DTO.GetShipResponse;
 import org.example.Ship.Ship;
-import org.example.User.User;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Function;
 

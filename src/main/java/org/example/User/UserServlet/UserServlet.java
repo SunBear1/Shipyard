@@ -28,7 +28,7 @@ import java.util.Optional;
 @MultipartConfig(maxFileSize = 200 * 1024)
 public class UserServlet extends HttpServlet {
 
-    private UserService service;
+    private final UserService service;
 
     public static class Paths {
 
@@ -41,7 +41,7 @@ public class UserServlet extends HttpServlet {
     private final Jsonb jsonb = JsonbBuilder.create();
 
     @Inject
-    public UserServlet(UserService service){
+    public UserServlet(UserService service) {
         this.service = service;
     }
 

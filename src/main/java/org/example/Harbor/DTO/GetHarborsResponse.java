@@ -2,8 +2,6 @@ package org.example.Harbor.DTO;
 
 import lombok.*;
 import org.example.Harbor.Harbor;
-import org.example.Ship.DTO.GetShipsResponse;
-import org.example.Ship.Ship;
 
 import java.util.Collection;
 import java.util.List;

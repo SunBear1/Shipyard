@@ -5,7 +5,6 @@ import org.example.Harbor.DTO.GetHarborsResponse;
 import org.example.Harbor.Harbor;
 import org.example.Harbor.Service.HarborService;
 import org.example.Servlet.ServletUtility;
-import org.example.Ship.DTO.GetShipsResponse;
 import org.example.Ship.Service.ShipService;
 
 import javax.inject.Inject;
@@ -23,11 +22,11 @@ import java.util.Optional;
         HarborServlet.Paths.HARBORS,
 })
 public class HarborServlet extends HttpServlet {
-    private HarborService harborService;
-    private ShipService shipService;
+    private final HarborService harborService;
+    private final ShipService shipService;
 
     @Inject
-    public HarborServlet(HarborService harborService, ShipService shipService){
+    public HarborServlet(HarborService harborService, ShipService shipService) {
         this.harborService = harborService;
         this.shipService = shipService;
     }

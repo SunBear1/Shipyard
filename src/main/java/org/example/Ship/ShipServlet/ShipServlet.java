@@ -28,8 +28,8 @@ import java.util.Optional;
 })
 public class ShipServlet extends HttpServlet {
 
-    private ShipService shipService;
-    private HarborService harborService;
+    private final ShipService shipService;
+    private final HarborService harborService;
 
     @Inject
     public ShipServlet(ShipService shipService, HarborService harborService) {
@@ -121,7 +121,7 @@ public class ShipServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = ServletUtility.parseRequestPath(request);
         if (Paths.HARBOR_SHIPS.equals(request.getServletPath())) {
             postHarborShip(request, response);
@@ -131,7 +131,7 @@ public class ShipServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = ServletUtility.parseRequestPath(request);
         if (Paths.SHIP.equals(request.getServletPath())) {
             if (path.matches(Patterns.SHIP)) {
@@ -168,11 +168,7 @@ public class ShipServlet extends HttpServlet {
                 .dtoToEntityMapper(harbor_code -> harborService.find(harbor_code).orElse(null), () -> null)
                 .apply(requestBody);
 
-        System.out.println("servlet1");
-        System.out.println(ship);
         try {
-            System.out.println("servlet2");
-            System.out.println(ship);
             shipService.create(ship);
             //When creating new resource, its location should be returned.
             response.addHeader(HttpHeaders.LOCATION,

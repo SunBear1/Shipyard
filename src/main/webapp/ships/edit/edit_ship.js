@@ -45,7 +45,8 @@ function updateInfoAction(event) {
 
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
+        if (this.readyState === 4 && this.status === 204) {
+            alert("Ship with name " + document.getElementById('name').value + " was successfully edited");
             loadShip(getShipId());
         }
     };
