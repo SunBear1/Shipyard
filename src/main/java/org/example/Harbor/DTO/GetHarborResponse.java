@@ -1,9 +1,10 @@
 package org.example.Harbor.DTO;
 
 import lombok.*;
-import org.example.Harbor.Country;
-import org.example.Harbor.Harbor;
-import org.example.Ship.Ship;
+import org.example.Harbor.Entity.Country;
+import org.example.Harbor.Entity.Harbor;
+import org.example.Ship.DTO.GetShipsResponse;
+import org.example.Ship.Entity.Ship;
 
 import java.util.List;
 import java.util.function.Function;
@@ -26,17 +27,16 @@ public class GetHarborResponse {
 
     private Country country;
 
-    private List<Ship> ships;
+    private GetShipsResponse local_units;
 
-
-    public static Function<Harbor, GetHarborResponse> entityToDtoMapper() {
+    public static Function<Harbor, GetHarborResponse> entityToDtoMapper(List<Ship> ships) {
         return harbor -> GetHarborResponse.builder()
                 .code(harbor.getCode())
                 .name(harbor.getName())
                 .capacity(harbor.getCapacity())
                 .budget(harbor.getBudget())
                 .country(harbor.getCountry())
-                .ships(harbor.getShips())
+                .local_units(GetShipsResponse.entityToDtoMapper().apply(ships))
                 .build();
     }
 }

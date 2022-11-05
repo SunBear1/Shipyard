@@ -1,0 +1,21 @@
+POST http://localhost:9080/Shipyard/api/harbors/ldn/ships
+Content-Type: application/json
+
+{
+  "completionDate": "2021-12-24",
+  "cost": 12345.67,
+  "name": "Sample ship",
+  "harbor_code": "LDN"
+}
+
+###
+
+GET http://localhost:9080/Shipyard/api/ships
+Accept: application/json
+
+###
+
+GET http://localhost:9080/Shipyard/api/harbors/LDN/ships/3
+Accept: application/json
+
+###

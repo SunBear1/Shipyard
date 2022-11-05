@@ -1,7 +1,7 @@
 package org.example.Ship.DTO;
 
 import lombok.*;
-import org.example.Ship.Ship;
+import org.example.Ship.Entity.Ship;
 
 import java.util.Collection;
 import java.util.List;
@@ -21,19 +21,16 @@ public class GetShipsResponse {
     private String name;
 
     @Singular
-    private List<Ship> ships;
+    private List<String> ships;
+
 
     public static Function<Collection<Ship>, GetShipsResponse> entityToDtoMapper() {
         return ships -> {
             GetShipsResponse.GetShipsResponseBuilder response = GetShipsResponse.builder();
             ships.stream()
-                    .map(ship -> Ship.builder()
-                            .id(ship.getId())
-                            .name(ship.getName())
-                            .build())
+                    .map(Ship::getName)
                     .forEach(response::ship);
             return response.build();
         };
-
     }
 }

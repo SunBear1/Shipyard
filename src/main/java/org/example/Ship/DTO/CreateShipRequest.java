@@ -1,9 +1,9 @@
 package org.example.Ship.DTO;
 
 import lombok.*;
-import org.example.Harbor.Harbor;
+import org.example.Harbor.Entity.Harbor;
 import org.example.Harbor.Service.HarborService;
-import org.example.Ship.Ship;
+import org.example.Ship.Entity.Ship;
 import org.example.User.User;
 
 import java.time.LocalDate;

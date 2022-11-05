@@ -1,0 +1,29 @@
+###
+
+DELETE http://localhost:9080/Shipyard/api/harbors/VCE
+Accept: application/json
+
+###
+
+POST http://localhost:9080/Shipyard/api/harbors
+Content-Type: application/json
+
+{
+  "budget": 8765,
+  "capacity": 816,
+  "country": "Italy",
+  "name": "Venice Royal Harbor",
+  "code": "VCE"
+}
+
+###
+
+GET http://localhost:9080/Shipyard/api/harbors
+Accept: application/json
+
+###
+
+GET http://localhost:9080/Shipyard/api/harbors/VCE
+Accept: application/json
+
+###

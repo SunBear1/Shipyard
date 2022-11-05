@@ -1,10 +1,10 @@
 package org.example.Ship.Repository;
 
 import org.example.DataStore.DataStore;
-import org.example.Harbor.Harbor;
+import org.example.Harbor.Entity.Harbor;
 import org.example.Repository.Repository;
 import org.example.Serialization.CloningUtility;
-import org.example.Ship.Ship;
+import org.example.Ship.Entity.Ship;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -47,17 +47,23 @@ public class ShipRepository implements Repository<Ship, Long> {
         store.updateShip(entity);
     }
 
-    public Optional<Ship> findByIdAndHarbor(Long id, Harbor harbor) {
-        return store.findAllShips().stream()
-                .filter(ship -> ship.getHarbor().equals(harbor))
-                .filter(ship -> ship.getId().equals(id))
-                .findFirst()
-                .map(CloningUtility::clone);
+    public Optional<Ship> findByIdAndHarbor(Long id, Optional<Harbor> harbor) {
+        if (harbor.isPresent()) {
+            return store.findAllShips().stream()
+                    .filter(ship -> ship.getHarbor().getCode().equals(harbor.get().getCode()))
+                    .filter(ship -> ship.getId().equals(id))
+                    .findFirst()
+                    .map(CloningUtility::clone);
+        } else {
+            return Optional.empty();
+        }
+
     }
 
     public List<Ship> findAllByHarbor(Harbor harbor) {
+        System.out.println(harbor);
         return store.findAllShips().stream()
-                .filter(ship -> ship.getHarbor().equals(harbor))
+                .filter(ship -> ship.getHarbor().getCode().equals(harbor.getCode()))
                 .map(CloningUtility::clone)
                 .collect(Collectors.toList());
     }

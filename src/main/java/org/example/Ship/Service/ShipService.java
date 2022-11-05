@@ -2,8 +2,8 @@ package org.example.Ship.Service;
 
 import lombok.NoArgsConstructor;
 import org.example.Harbor.Repository.HarborRepository;
+import org.example.Ship.Entity.Ship;
 import org.example.Ship.Repository.ShipRepository;
-import org.example.Ship.Ship;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -48,7 +48,7 @@ public class ShipService {
     }
 
     public Optional<Ship> findForHarbor(Long id, String code) {
-        return shipRepository.findByIdAndHarbor(id, harborRepository.find(code).orElseThrow());
+        return shipRepository.findByIdAndHarbor(id, harborRepository.find(code));
     }
 
 

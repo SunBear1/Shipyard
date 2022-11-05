@@ -1,7 +1,7 @@
 package org.example.Ship.DTO;
 
 import lombok.*;
-import org.example.Ship.Ship;
+import org.example.Ship.Entity.Ship;
 
 import java.time.LocalDate;
 import java.util.function.BiFunction;

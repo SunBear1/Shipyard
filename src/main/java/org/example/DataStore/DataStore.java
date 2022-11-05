@@ -1,9 +1,9 @@
 package org.example.DataStore;
 
 import lombok.extern.java.Log;
-import org.example.Harbor.Harbor;
+import org.example.Harbor.Entity.Harbor;
 import org.example.Serialization.CloningUtility;
-import org.example.Ship.Ship;
+import org.example.Ship.Entity.Ship;
 import org.example.User.User;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -85,6 +85,14 @@ public class DataStore {
                 .mapToLong(Ship::getId)
                 .max().orElse(0) + 1);
         ships.add(CloningUtility.clone(ship));
+
+        Harbor harbor = ship.getHarbor();
+        List<Ship> new_ships = harbor.getShips();
+        new_ships.add(CloningUtility.clone(ship));
+        harbor.setShips(new_ships);
+        updateHarbor(harbor);
+
+        updateShip(ship);
     }
 
     public synchronized void updateShip(Ship ship) throws IllegalArgumentException {

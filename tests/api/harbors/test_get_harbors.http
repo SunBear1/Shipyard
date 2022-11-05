@@ -1,0 +1,17 @@
+GET http://localhost:9080/Shipyard/api/harbors
+Accept: application/json
+
+###
+
+GET http://localhost:9080/Shipyard/api/harbors/ams
+Accept: application/json
+
+###
+
+GET http://localhost:9080/Shipyard/api/harbors/gdn
+Accept: application/json
+
+###
+
+GET http://localhost:9080/Shipyard/api/harbors/ldn
+Accept: application/json

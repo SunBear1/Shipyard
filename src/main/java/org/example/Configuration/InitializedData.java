@@ -1,11 +1,11 @@
 package org.example.Configuration;
 
 import lombok.SneakyThrows;
-import org.example.Harbor.Country;
-import org.example.Harbor.Harbor;
+import org.example.Harbor.Entity.Country;
+import org.example.Harbor.Entity.Harbor;
 import org.example.Harbor.Service.HarborService;
+import org.example.Ship.Entity.Ship;
 import org.example.Ship.Service.ShipService;
-import org.example.Ship.Ship;
 import org.example.User.Service.UserService;
 import org.example.User.User;
 
@@ -106,14 +106,12 @@ public class InitializedData {
         Ship ship_one = Ship.builder()
                 .name("Titanic")
                 .completionDate(LocalDate.of(2022, 1, 13))
-                .user(jack)
                 .harbor(ams)
                 .cost(98765.21)
                 .build();
         Ship ship_two = Ship.builder()
                 .name("Black Pearl")
                 .completionDate(LocalDate.of(1975, 5, 13))
-                .user(admin)
                 .harbor(ams)
                 .cost(123.21)
                 .build();

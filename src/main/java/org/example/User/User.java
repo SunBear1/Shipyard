@@ -3,7 +3,7 @@ package org.example.User;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.example.Ship.Ship;
+import org.example.Ship.Entity.Ship;
 
 import java.io.Serializable;
 import java.util.List;

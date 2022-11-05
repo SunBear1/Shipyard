@@ -1,7 +1,7 @@
 package org.example.Harbor.Repository;
 
 import org.example.DataStore.DataStore;
-import org.example.Harbor.Harbor;
+import org.example.Harbor.Entity.Harbor;
 import org.example.Repository.Repository;
 
 import javax.enterprise.context.Dependent;

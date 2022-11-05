@@ -1,7 +1,7 @@
 package org.example.Harbor.Service;
 
 import lombok.NoArgsConstructor;
-import org.example.Harbor.Harbor;
+import org.example.Harbor.Entity.Harbor;
 import org.example.Harbor.Repository.HarborRepository;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -31,8 +31,8 @@ public class HarborService {
         repository.create(harbor);
     }
 
-    public void delete(String domain) {
-        repository.delete(repository.find(domain).orElseThrow());
+    public void delete(String code) {
+        repository.delete(repository.find(code).orElseThrow());
     }
 
     public void update(Harbor harbor) {

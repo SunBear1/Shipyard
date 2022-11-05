@@ -1,8 +1,8 @@
-package org.example.Ship;
+package org.example.Ship.Entity;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.example.Harbor.Harbor;
+import org.example.Harbor.Entity.Harbor;
 import org.example.User.User;
 
 import java.io.Serializable;
