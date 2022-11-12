@@ -43,4 +43,9 @@ public class UserRepository implements Repository<User, String> {
     public void update(User entity) {
         store.updateUser(entity);
     }
+
+    @Override
+    public void detach(User entity) {
+
+    }
 }

@@ -1,71 +1,73 @@
 package org.example.Ship.Repository;
 
-import org.example.DataStore.DataStore;
 import org.example.Harbor.Entity.Harbor;
 import org.example.Repository.Repository;
-import org.example.Serialization.CloningUtility;
 import org.example.Ship.Entity.Ship;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-@Dependent
+@RequestScoped
 public class ShipRepository implements Repository<Ship, Long> {
 
-    private final DataStore store;
+    private EntityManager em;
 
-    @Inject
-    public ShipRepository(DataStore store) {
-        this.store = store;
+    @PersistenceContext
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
+
 
     @Override
     public Optional<Ship> find(Long id) {
-        return store.findShip(id);
+        return Optional.ofNullable(em.find(Ship.class, id));
     }
 
     @Override
     public List<Ship> findAll() {
-        return store.findAllShips();
+        return em.createQuery("select c from Ship c", Ship.class).getResultList();
     }
 
     @Override
     public void create(Ship entity) {
-        store.createShip(entity);
+        em.persist(entity);
     }
 
     @Override
     public void delete(Ship entity) {
-        store.deleteShip(entity.getId());
+        em.remove(em.find(Ship.class, entity.getId()));
     }
 
     @Override
     public void update(Ship entity) {
-        store.updateShip(entity);
+        em.merge(entity);
+    }
+
+    @Override
+    public void detach(Ship entity) {
+        em.detach(entity);
     }
 
     public Optional<Ship> findByIdAndHarbor(Long id, Optional<Harbor> harbor) {
-        if (harbor.isPresent()) {
-            return store.findAllShips().stream()
-                    .filter(ship -> ship.getHarbor().getCode().equals(harbor.get().getCode()))
-                    .filter(ship -> ship.getId().equals(id))
-                    .findFirst()
-                    .map(CloningUtility::clone);
-        } else {
+        try {
+            return Optional.of(em.createQuery("select c from Ships c where c.id = :id and c.harbor = :harbor", Ship.class)
+                    .setParameter("harbor", harbor)
+                    .setParameter("id", id)
+                    .getSingleResult());
+        } catch (NoResultException ex) {
             return Optional.empty();
         }
-
     }
 
+
     public List<Ship> findAllByHarbor(Harbor harbor) {
-        System.out.println(harbor);
-        return store.findAllShips().stream()
-                .filter(ship -> ship.getHarbor().getCode().equals(harbor.getCode()))
-                .map(CloningUtility::clone)
-                .collect(Collectors.toList());
+        return em.createQuery("select c from Ships c where c.harbor = :harbor", Ship.class)
+                .setParameter("harbor", harbor)
+                .getResultList();
     }
 
 }

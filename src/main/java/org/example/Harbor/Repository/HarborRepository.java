@@ -1,46 +1,52 @@
 package org.example.Harbor.Repository;
 
-import org.example.DataStore.DataStore;
 import org.example.Harbor.Entity.Harbor;
 import org.example.Repository.Repository;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
-@Dependent
+@RequestScoped
 public class HarborRepository implements Repository<Harbor, String> {
 
-    private final DataStore store;
+    private EntityManager em;
 
-    @Inject
-    public HarborRepository(DataStore store) {
-        this.store = store;
+    @PersistenceContext
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 
     @Override
     public Optional<Harbor> find(String code) {
-        return store.findHarbor(code);
+        return Optional.ofNullable(em.find(Harbor.class, code));
     }
 
     @Override
     public List<Harbor> findAll() {
-        return store.findAllHarbors();
+        return em.createQuery("select p from Harbor p", Harbor.class).getResultList();
     }
 
     @Override
     public void create(Harbor entity) {
-        store.createHarbor(entity);
+        em.persist(entity);
     }
 
     @Override
     public void delete(Harbor entity) {
-        store.deleteHarbor(entity.getCode());
+        em.remove(em.find(Harbor.class, entity.getName()));
     }
 
     @Override
     public void update(Harbor entity) {
-        store.updateHarbor(entity);
+        em.merge(entity);
     }
+
+    @Override
+    public void detach(Harbor entity) {
+        em.detach(entity);
+    }
+
 }

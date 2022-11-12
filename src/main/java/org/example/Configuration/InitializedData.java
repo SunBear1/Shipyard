@@ -11,6 +11,7 @@ import org.example.User.User;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
+import javax.enterprise.context.control.RequestContextController;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.io.InputStream;
@@ -26,11 +27,14 @@ public class InitializedData {
     private final ShipService shipService;
     private final HarborService harborService;
 
+    private final RequestContextController requestContextController;
+
     @Inject
-    public InitializedData(UserService userService, ShipService shipService, HarborService harborService) {
+    public InitializedData(UserService userService, ShipService shipService, HarborService harborService, RequestContextController requestContextController) {
         this.shipService = shipService;
         this.userService = userService;
         this.harborService = harborService;
+        this.requestContextController = requestContextController;
     }
 
     public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
@@ -38,6 +42,7 @@ public class InitializedData {
     }
 
     private synchronized void init() {
+        requestContextController.activate();
         String defaultAvatarPath = "avatars/default.png";
         User admin = User.builder()
                 .login("admin")
@@ -117,6 +122,7 @@ public class InitializedData {
                 .build();
         shipService.create(ship_one);
         shipService.create(ship_two);
+        requestContextController.deactivate();
     }
 
     @SneakyThrows
