@@ -52,9 +52,9 @@ public class ShipRepository implements Repository<Ship, Long> {
         em.detach(entity);
     }
 
-    public Optional<Ship> findByIdAndHarbor(Long id, Optional<Harbor> harbor) {
+    public Optional<Ship> findByIdAndHarbor(Long id, Harbor harbor) {
         try {
-            return Optional.of(em.createQuery("select c from Ships c where c.id = :id and c.harbor = :harbor", Ship.class)
+            return Optional.of(em.createQuery("select s from Ship s where s.id = :id and s.harbor = :harbor", Ship.class)
                     .setParameter("harbor", harbor)
                     .setParameter("id", id)
                     .getSingleResult());
@@ -65,7 +65,7 @@ public class ShipRepository implements Repository<Ship, Long> {
 
 
     public List<Ship> findAllByHarbor(Harbor harbor) {
-        return em.createQuery("select c from Ships c where c.harbor = :harbor", Ship.class)
+        return em.createQuery("select s from Ship s where s.harbor = :harbor", Ship.class)
                 .setParameter("harbor", harbor)
                 .getResultList();
     }

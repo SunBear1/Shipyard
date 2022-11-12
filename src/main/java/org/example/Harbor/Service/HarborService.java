@@ -6,6 +6,7 @@ import org.example.Harbor.Repository.HarborRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,14 +28,17 @@ public class HarborService {
         return repository.findAll();
     }
 
+    @Transactional
     public void create(Harbor harbor) {
         repository.create(harbor);
     }
 
+    @Transactional
     public void delete(String code) {
         repository.delete(repository.find(code).orElseThrow());
     }
 
+    @Transactional
     public void update(Harbor harbor) {
         repository.update(harbor);
     }
