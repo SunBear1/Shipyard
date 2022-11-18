@@ -40,6 +40,7 @@ public class ShipService {
                 .max().orElse(0) + 1);
         System.out.println(ship);
         shipRepository.create(ship);
+        harborRepository.find(ship.getHarbor().getCode()).ifPresent(harbor -> harbor.getShips().add(ship));
     }
 
     @Transactional

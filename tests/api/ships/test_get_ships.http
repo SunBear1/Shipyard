@@ -12,3 +12,6 @@ GET http://localhost:9080/Shipyard/api/harbors/AMS/ships/2
 Accept: application/json
 
 ###
+
+GET http://localhost:9080/Shipyard/api/harbors/AMS/ships
+Accept: application/json

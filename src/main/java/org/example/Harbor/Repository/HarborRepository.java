@@ -36,7 +36,7 @@ public class HarborRepository implements Repository<Harbor, String> {
 
     @Override
     public void delete(Harbor entity) {
-        em.remove(em.find(Harbor.class, entity.getName()));
+        em.remove(em.find(Harbor.class, entity.getCode()));
     }
 
     @Override

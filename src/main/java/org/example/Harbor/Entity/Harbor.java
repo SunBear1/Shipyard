@@ -3,10 +3,7 @@ package org.example.Harbor.Entity;
 import lombok.*;
 import org.example.Ship.Entity.Ship;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -32,7 +29,9 @@ public class Harbor implements Serializable {
 
     private Country country;
 
-    @Transient
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "harbor", cascade = CascadeType.REMOVE)
     private List<Ship> ships;
 }
 
